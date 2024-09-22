@@ -1991,7 +1991,7 @@ player.on('ended', function () { // Переход на следующее ви�
   // if (currentIndex >= videos.length) {
   //   currentIndex = 0; // Зацикливаем плейлист
   // }
-  getRandomInt(videos.length)
+  currentIndex = getRandomInt(videos.length)
   loadVideo(currentIndex);
 });
 
