@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Λ V X T V</title>
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  <style>
+    html, body {
+      height: 100%; width: 100%;
+      margin: 0; padding: 0;
+    }
+    .plyr__video-embed {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+<div id="PLAYER" data-plyr-provider="youtube" data-plyr-embed-id="dQw4w9WgXcQ"></div>
+
+<script src="https://cdn.plyr.io/3.7.8/plyr.js"></script><script>
+const videos = [ // Массив с видео-ссылками (YouTube и Vimeo)
+  { type: 'yt', id: 'dQw4w9WgXcQ' }, 
+  { type: 'vi', id: '76979871' },      
+  { type: 'yt', id: 'LXb3EKWsInQ' }, 
+  { type: 'vi', id: '22439234' }       
+];
+let currentIndex = 0; // Текущий индекс видео
+const container = document.getElementById('PLAYER');
+const player = new Plyr(container, { autoplay: true, controls: ['play', 'progress', 'mute', 'volume', 'fullscreen'] }); // Инициализируем Plyr
+
+function loadVideo(index) { // Функция для загрузки и воспроизведения следующего видео
+  const video = videos[index];
+  if (video.type === 'yt') {
+    player.source = {
+      type: 'video',
+      sources: [{
+        src: video.id,
+        provider: 'youtube',
+      }],
+    };
+  } else if (video.type === 'vi') {
+    player.source = {
+      type: 'video',
+      sources: [{
+        src: video.id,
+        provider: 'vimeo',
+      }],
+    };
+  }
+  player.play(); // Автоматически начинаем воспроизведение
+}
+
+loadVideo(currentIndex); // Загрузка первого видео
+
+player.on('ended', function () { // Переход на следующее видео по окончании текущего
+  currentIndex++;
+  if (currentIndex >= videos.length) {
+    currentIndex = 0; // Зацикливаем плейлист
+  }
+  loadVideo(currentIndex);
+});
+
+player.on('ready', function () { // Запуск плеера с первым видео по кнопке play (требуется для автозапуска в некоторых браузерах)
+  player.play(); // Попробуем сразу запустить
+});
+</script></body></html>
