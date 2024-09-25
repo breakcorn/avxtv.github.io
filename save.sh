@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# https://www.shellcheck.net/
 # https://itisgood.ru/2024/03/13/chto-takoe-ifs-v-skriptakh-na-bash/
 
 set -e
